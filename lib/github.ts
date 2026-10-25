@@ -16,6 +16,7 @@ export const FEATURED = [
   "AndroidBuilder",
   "LegacyTune",
   "ArtificiallyInteligent",
+  "rgjailbreaks",
   "Cyclopean",
   "SplitLite",
 ] as const;
@@ -102,7 +103,7 @@ export const SNAPSHOT: RepoData[] = [
   snap({
     name: "AndroidBuilder",
     description:
-      "romforge — a custom Android ROM build orchestrator. Finds device, kernel and recovery trees on GitHub, stages GApps and Magisk, and drives the whole build from an interactive TUI or a plain CLI.",
+      "romforge: a custom Android ROM build orchestrator. Finds device, kernel and recovery trees on GitHub, stages GApps and Magisk, and drives the whole build from an interactive TUI or a plain CLI.",
     language: "Python",
     languages: { Python: 1 },
     topics: ["android", "rom", "aosp", "automation", "python"],
@@ -121,7 +122,7 @@ export const SNAPSHOT: RepoData[] = [
     name: "ArtificiallyInteligent",
     description:
       "A lightweight AI chatbot client for jailbroken iOS 4.0+. A SpringBoard overlay, a Settings pane and a standalone app — native Objective-C, no web views — talking to OpenAI-compatible, Ollama and custom providers.",
-    language: "Logos",
+    language: "Objective-C",
     languages: { Logos: 1 },
     license: "MIT",
     topics: ["jailbreak", "ios", "theos", "chatbot", "ollama"],
@@ -141,11 +142,21 @@ export const SNAPSHOT: RepoData[] = [
     name: "SplitLite",
     description:
       "Fixed 50/50 two-app tiling for the iPad 2 on iOS 9.3.5. A jailbroken SpringBoard tweak — three-finger swipe up, pick an app for each half.",
-    language: "Logos",
+    language: "Objective-C",
     languages: { Logos: 1 },
     license: "MIT",
     topics: ["jailbreak", "ipad", "ios9", "theos", "multitasking"],
     pushedAt: "2026-10-13T00:00:00Z",
+  }),
+  snap({
+    name: "rgjailbreaks",
+    description:
+      "cydia / sileo repo",
+    language: "html, js, css",
+    languages: { Logos: 1 },
+    license: "MIT",
+    topics: ["jailbreak", "theos", "development"],
+    pushedAt: "2026-10-08T00:00:00Z",
   }),
 ];
 
