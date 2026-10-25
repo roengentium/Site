@@ -171,9 +171,7 @@ function contactLines(): LineData[] {
         {kw("export const")} <span className={PARAM}>contact</span> {mut("= {")}
       </span>
     ),
-    prop(2, "github", str(CONTACT.github)),
-    prop(2, "twitter", str(CONTACT.twitter)),
-    prop(2, "youtube", str(CONTACT.youtube)),
+    ...Object.entries(CONTACT).map(([k, v]) => prop(2, k, str(v))),
     L(mut("};")),
   ];
 }
