@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { JetBrains_Mono, Roboto } from "next/font/google";
 import { GH_OWNER, GH_PROFILE, SNAPSHOT, formatDate, loadRepos, type RepoPayload } from "@/lib/github";
 import { neofetch } from "@/lib/neofetch";
-import { ABOUT, BOOKMARK_NAV, CONTACT, PROFILE, SKILLS } from "@/lib/content";
+import { ABOUT, BOOKMARK_NAV, CONTACT, PROFILE, SKILLS, contactLabel } from "@/lib/content";
 import { ReleasesView } from "@/components/ide/releases";
 import {
   FILE_IDS,
@@ -182,9 +182,7 @@ function Preview({ id, payload, onOpen }: { id: FileId; payload: RepoPayload; on
         <div className="flex h-full flex-col items-center justify-center gap-4 bg-[#141416] p-6 text-center">
           <p className="text-sm font-bold text-white">Let&apos;s build something.</p>
           <div className="flex flex-wrap justify-center gap-2">
-            {link("GitHub", CONTACT.github)}
-            {link("Twitter", CONTACT.twitter)}
-            {link("YouTube", CONTACT.youtube)}
+            {Object.entries(CONTACT).map(([k, v]) => link(contactLabel(k), v))}
           </div>
         </div>
       );
@@ -625,9 +623,7 @@ export default function Home() {
       ...FILE_IDS.map((f): PaletteItem => ({ id: `f-${f}`, label: FILE_META[f].label, hint: `${FILE_META[f].dir || "portfolio"}/`, icon: "description", group: "Files", run: () => openFile(f) })),
       ...payload.repos.map((r): PaletteItem => ({ id: `r-${r.name}`, label: r.name, hint: `${r.language ?? "repo"} · show in Releases`, icon: "rocket_launch", group: "Projects", run: () => openFile("work", r.name) })),
       ...payload.repos.map((r): PaletteItem => ({ id: `g-${r.name}`, label: `Open ${r.name} on GitHub`, hint: r.url.replace("https://", ""), icon: "open_in_new", group: "Links", run: () => window.open(r.url, "_blank", "noopener,noreferrer") })),
-      { id: "l-gh", label: "GitHub profile", hint: GH_PROFILE.replace("https://", ""), icon: "open_in_new", group: "Links", run: () => window.open(CONTACT.github, "_blank", "noopener,noreferrer") },
-      { id: "l-tw", label: "Twitter / X", icon: "open_in_new", group: "Links", run: () => window.open(CONTACT.twitter, "_blank", "noopener,noreferrer") },
-      { id: "l-yt", label: "YouTube", icon: "open_in_new", group: "Links", run: () => window.open(CONTACT.youtube, "_blank", "noopener,noreferrer") },
+      ...Object.entries(CONTACT).map(([k, v]): PaletteItem => ({ id: `l-${k}`, label: contactLabel(k), hint: v.replace(/^https?:\/\/(www\.)?/, ""), icon: "open_in_new", group: "Links", run: () => window.open(v, "_blank", "noopener,noreferrer") })),
       { id: "a-run", label: "Run 'portfolio'", hint: "Shift+F10", icon: "play_arrow", group: "Actions", run: runBuild },
       { id: "a-term", label: "Toggle Terminal", hint: "Alt+F12", icon: "terminal", group: "Actions", run: () => (bottomOpen && bottomTab === "terminal" ? setBottomOpen(false) : openBottom("terminal")) },
       { id: "a-log", label: "Open Logcat", icon: "bug_report", group: "Actions", run: () => openBottom("logcat") },
