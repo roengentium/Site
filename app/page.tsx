@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { JetBrains_Mono, Roboto } from "next/font/google";
 import { GH_OWNER, GH_PROFILE, SNAPSHOT, formatDate, loadRepos, type RepoPayload } from "@/lib/github";
+import { neofetch } from "@/lib/neofetch";
 import { ABOUT, BOOKMARK_NAV, CONTACT, PROFILE, SKILLS } from "@/lib/content";
 import { ReleasesView } from "@/components/ide/releases";
 import {
@@ -558,7 +559,8 @@ export default function Home() {
           "  open <file>        open it in the editor",
           "  repos              list GitHub projects",
           "  github             open my GitHub profile",
-          "  whoami / neofetch  about this session",
+          "  whoami            print the username",
+          "  neofetch          system info (real values from your browser)",
           "  ./gradlew assembleDebug   build & run",
           "  reload             re-fetch GitHub data",
           "  clear              clear the screen (Ctrl+L)",
@@ -584,15 +586,7 @@ export default function Home() {
       case "whoami":
         return [PROFILE.name];
       case "neofetch":
-        return [
-          `${PROFILE.name}@portfolio`,
-          "-------------------",
-          "OS: Portfolio OS (Next.js)",
-          "Host: Android Studio, in spirit",
-          `Shell: ${args.length ? args[0] : "bash"}`,
-          `Repos: ${payload.repos.length}`,
-          `Data: ${payload.source} (${formatDate(payload.fetchedAt)})`,
-        ];
+        return neofetch({ user: GH_OWNER, repos: payload.repos.length, source: payload.source });
       case "date":
         return [new Date().toString()];
       case "echo":
